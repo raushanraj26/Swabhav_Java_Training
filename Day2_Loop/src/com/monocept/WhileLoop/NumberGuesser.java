@@ -17,8 +17,19 @@ public class NumberGuesser {
 
         while (guess != num) {
             attempt++;
-            System.out.print("Guess Number: ");
-            guess = numberguesser.nextInt();
+            while (true) {
+
+                System.out.print("Guess Number: ");
+
+                if (numberguesser.hasNextInt()) {
+                    guess = numberguesser.nextInt();
+                    break;   // correct input → exit loop
+                } 
+                else {
+                    System.out.println("Please enter numbers only!");
+                    numberguesser.next();   // remove wrong input
+                }
+            }
 
             if (guess < num) {
                 System.out.println("Sorry, too Low");
@@ -27,7 +38,7 @@ public class NumberGuesser {
             }
         }
 
-        System.out.println("You won in attempt " + attempt);
+        System.out.println("You won in attempt " + attempt + " ! and Number is "+ num);
         numberguesser.close();
     }
 }
