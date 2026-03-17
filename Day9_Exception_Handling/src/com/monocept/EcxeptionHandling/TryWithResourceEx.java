@@ -6,8 +6,8 @@ public class TryWithResourceEx {
 		 Scanner sc = new Scanner(System.in);
 		 System.out.println("Enter number:");
          int num = sc.nextInt();
-
-         System.out.println("Number is: " + num);
+      System.out.println("Number is: " + num);
+      sc.close();
 
 //	        try(Scanner sc = new Scanner(System.in)) {
 //
