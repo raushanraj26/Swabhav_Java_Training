@@ -10,20 +10,64 @@ public class SortMovies {
 
         List<Movie> movies = new ArrayList<>();
 
-        System.out.print("Enter number of movies: ");
-        int n = sc.nextInt();
-        sc.nextLine();
+        int n = 0;
+
+        // ✅ Validate number of movies
+        while (true) {
+            System.out.print("Enter number of movies: ");
+
+            if (sc.hasNextInt()) {
+                n = sc.nextInt();
+                sc.nextLine();
+
+                if (n > 0) {
+                    break;
+                } else {
+                    System.out.println("Number must be greater than 0!");
+                }
+            } else {
+                System.out.println("Invalid input! Enter a number.");
+                sc.nextLine();
+            }
+        }
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 
         for(int i = 0; i < n; i++) {
 
             System.out.println("\nEnter movie details " + (i+1));
 
-            System.out.print("Enter title: ");
-            String title = sc.nextLine();
+            // ✅ Validate Title
+            String title;
+            while (true) {
+                System.out.print("Enter title: ");
+                title = sc.nextLine();
 
-            System.out.print("Enter year: ");
-            int year = sc.nextInt();
-            sc.nextLine();
+                if (!title.trim().isEmpty()) {
+                    break;
+                } else {
+                    System.out.println("Title cannot be empty!");
+                }
+            }
+
+            // ✅ Validate Year
+            int year;
+            while (true) {
+                System.out.print("Enter year: ");
+
+                if (sc.hasNextInt()) {
+                    year = sc.nextInt();
+                    sc.nextLine();
+
+                    if (year >= 1888 && year <= currentYear) {
+                        break;
+                    } else {
+                        System.out.println("Enter valid year (1888 - " + currentYear + ")");
+                    }
+                } else {
+                    System.out.println("Invalid input! Enter a number.");
+                    sc.nextLine();
+                }
+            }
 
             movies.add(new Movie(title, year));
         }

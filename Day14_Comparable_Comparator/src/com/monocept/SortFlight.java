@@ -10,20 +10,66 @@ public class SortFlight {
 
         List<Flight> flights = new ArrayList<>();
 
-        System.out.print("Enter number of flights: ");
-        int n = sc.nextInt();
-        sc.nextLine();
+       
+        int n = 0;
+
+        // ✅ Validate number of flights
+        while (true) {
+            System.out.print("Enter number of flights: ");
+
+            if (sc.hasNextInt()) {
+                n = sc.nextInt();
+                sc.nextLine();
+
+                if (n > 0) {
+                    break;
+                } else {
+                    System.out.println("Number must be greater than 0!");
+                }
+            } else {
+                System.out.println("Invalid input! Enter a number.");
+                sc.nextLine();
+            }
+        }
+
 
         for(int i = 0; i < n; i++) {
 
             System.out.println("\nEnter flight details " + (i+1));
 
-            System.out.print("Enter airline name: ");
-            String airline = sc.nextLine();
+         // ✅ Validate Airline Name
+            String airline;
+            while (true) {
+                System.out.print("Enter airline name: ");
+                airline = sc.nextLine();
 
-            System.out.print("Enter fare: ");
-            double fare = sc.nextDouble();
-            sc.nextLine();
+                if (airline.matches("[a-zA-Z ]+") && !airline.trim().isEmpty()) {
+                    break;
+                } else {
+                    System.out.println("Invalid name! Only letters allowed.");
+                }
+            }
+
+
+            // ✅ Validate Fare
+            double fare;
+            while (true) {
+                System.out.print("Enter fare: ");
+
+                if (sc.hasNextDouble()) {
+                    fare = sc.nextDouble();
+                    sc.nextLine();
+
+                    if (fare > 0) {
+                        break;
+                    } else {
+                        System.out.println("Fare must be greater than 0!");
+                    }
+                } else {
+                    System.out.println("Invalid input! Enter a valid number.");
+                    sc.nextLine();
+                }
+            }
 
             flights.add(new Flight(airline, fare));
         }

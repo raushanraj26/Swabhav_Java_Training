@@ -49,21 +49,62 @@ public class SortCandidate {
 
 	        List<Candidate> list = new ArrayList<>();
 
-	        System.out.print("Enter number of candidates: ");
-	        int n = sc.nextInt();
-	        sc.nextLine();   // consume newline
+	        int n = 0;
+
+	        // ✅ Validate number of candidates
+	        while (true) {
+	            System.out.print("Enter number of candidates: ");
+	            
+	            if (sc.hasNextInt()) {
+	                n = sc.nextInt();
+	                sc.nextLine(); // consume newline
+
+	                if (n > 0) {
+	                    break;
+	                } else {
+	                    System.out.println("Number must be greater than 0!");
+	                }
+	            } else {
+	                System.out.println("Invalid input! Enter a number.");
+	                sc.nextLine(); // clear invalid input
+	            }
+	        }
 
 	        for(int i = 0; i < n; i++) {
 
 	            System.out.println("\nEnter details of candidate " + (i+1));
 
-	            System.out.print("Enter name: ");
-	            String name = sc.nextLine();
+	            String name;
+	            while (true) {
+	                System.out.print("Enter name: ");
+	                name = sc.nextLine();
 
-	            System.out.print("Enter age: ");
-	            int age = sc.nextInt();
-	            sc.nextLine();  // consume newline
+	                if (name.matches("[a-zA-Z ]+") && !name.trim().isEmpty()) {
+	                    break;
+	                } else {
+	                    System.out.println("Invalid name! Only letters allowed.");
+	                }
+	            }
 
+	            // ✅ Validate Age
+	            int age;
+	            while (true) {
+	                System.out.print("Enter age: ");
+
+	                if (sc.hasNextInt()) {
+	                    age = sc.nextInt();
+	                    sc.nextLine(); // consume newline
+
+	                    if (age >= 18 && age <= 60) {
+	                        break;
+	                    } else {
+	                        System.out.println("Age must be between 18 and 60.");
+	                    }
+	                } else {
+	                    System.out.println("Invalid input! Enter a number.");
+	                    sc.nextLine(); // clear invalid input
+	                }
+	            }
 	            Candidate c = new Candidate(name, age);
 
 	            list.add(c);

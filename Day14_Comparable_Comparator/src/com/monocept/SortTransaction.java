@@ -10,18 +10,68 @@ public class SortTransaction {
 
         List<Transaction> transactions = new ArrayList<>();
 
-        System.out.print("Enter number of transactions: ");
-        int n = sc.nextInt();
+        int n = 0;
+
+        // ✅ Validate number of transactions
+        while (true) {
+            System.out.print("Enter number of transactions: ");
+
+            if (sc.hasNextInt()) {
+                n = sc.nextInt();
+
+                if (n > 0) {
+                    break;
+                } else {
+                    System.out.println("Number must be greater than 0!");
+                }
+            } else {
+                System.out.println("Invalid input! Enter a number.");
+                sc.nextLine();
+            }
+        }
+
 
         for(int i = 0; i < n; i++) {
 
             System.out.println("\nEnter transaction details " + (i+1));
 
-            System.out.print("Enter ID: ");
-            int id = sc.nextInt();
+            // ✅ Validate ID
+            int id;
+            while (true) {
+                System.out.print("Enter ID: ");
 
-            System.out.print("Enter amount: ");
-            double amount = sc.nextDouble();
+                if (sc.hasNextInt()) {
+                    id = sc.nextInt();
+
+                    if (id > 0) {
+                        break;
+                    } else {
+                        System.out.println("ID must be positive!");
+                    }
+                } else {
+                    System.out.println("Invalid input! Enter a number.");
+                    sc.nextLine();
+                }
+            }
+
+            // ✅ Validate Amount
+            double amount;
+            while (true) {
+                System.out.print("Enter amount: ");
+
+                if (sc.hasNextDouble()) {
+                    amount = sc.nextDouble();
+
+                    if (amount > 0) {
+                        break;
+                    } else {
+                        System.out.println("Amount must be greater than 0!");
+                    }
+                } else {
+                    System.out.println("Invalid input! Enter a valid number.");
+                    sc.nextLine();
+                }
+            }
 
             transactions.add(new Transaction(id, amount));
         }

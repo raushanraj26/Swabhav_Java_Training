@@ -10,23 +10,75 @@ public class SortProduct {
 
         List<Product> products = new ArrayList<>();
 
-        System.out.print("Enter number of products: ");
-        int n = sc.nextInt();
-        sc.nextLine();
+        int n = 0;
 
+        // ✅ Validate number of products
+        while (true) {
+            System.out.print("Enter number of products: ");
+
+            if (sc.hasNextInt()) {
+                n = sc.nextInt();
+                sc.nextLine();
+
+                if (n > 0) {
+                    break;
+                } else {
+                    System.out.println("Number must be greater than 0!");
+                }
+            } else {
+                System.out.println("Invalid input! Enter a number.");
+                sc.nextLine();
+            }
+        }
         for(int i = 0; i < n; i++) {
 
             System.out.println("\nEnter product details " + (i+1));
 
-            System.out.print("Enter category: ");
-            String category = sc.nextLine();
+            // ✅ Validate Category
+            String category;
+            while (true) {
+                System.out.print("Enter category: ");
+                category = sc.nextLine();
 
-            System.out.print("Enter product name: ");
-            String name = sc.nextLine();
+                if (category.matches("[a-zA-Z ]+") && !category.trim().isEmpty()) {
+                    break;
+                } else {
+                    System.out.println("Invalid category! Only letters allowed.");
+                }
+            }
 
-            System.out.print("Enter price: ");
-            double price = sc.nextDouble();
-            sc.nextLine();
+            // ✅ Validate Product Name
+            String name;
+            while (true) {
+                System.out.print("Enter product name: ");
+                name = sc.nextLine();
+
+                if (!name.trim().isEmpty()) {
+                    break;
+                } else {
+                    System.out.println("Product name cannot be empty!");
+                }
+            }
+
+            // ✅ Validate Price
+            double price;
+            while (true) {
+                System.out.print("Enter price: ");
+
+                if (sc.hasNextDouble()) {
+                    price = sc.nextDouble();
+                    sc.nextLine();
+
+                    if (price > 0) {
+                        break;
+                    } else {
+                        System.out.println("Price must be greater than 0!");
+                    }
+                } else {
+                    System.out.println("Invalid input! Enter a valid number.");
+                    sc.nextLine();
+                }
+            }
 
             products.add(new Product(category, name, price));
         }
