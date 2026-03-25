@@ -5,141 +5,185 @@ import com.monocept.LibraryBook.model.*;
 
 public class LibrayBookMangaement {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
-		// TreeSet for books
-		TreeSet<Book> books = new TreeSet<>(new BookTitleComparator());
+        TreeSet<Book> books = new TreeSet<>(new BookTitleComparator());
+        Queue<String> peopleQueue = new LinkedList<>();
 
-		// Queue for people
-		Queue<String> peopleQueue = new LinkedList<>();
+        int mainChoice = 0;
 
-		int mainChoice;
+        do {
+            try {
+                System.out.println("\n------- MAIN MENU ----");
+                System.out.println("1. Add Person to Queue");
+                System.out.println("2. Process Queue");
+                System.out.println("3. Exit");
 
-		do {
-			System.out.println("\n------- MAIN MENU ----");
-			System.out.println("1. Add Person to Queue");
-			System.out.println("2. Process Queue");
-			System.out.println("3. Exit");
+                System.out.print("Enter choice: ");
+                mainChoice = sc.nextInt();
+                sc.nextLine();
 
-			mainChoice = sc.nextInt();
-			sc.nextLine();
+                switch (mainChoice) {
 
-			switch (mainChoice) {
+                case 1:
+                    System.out.print("Enter person name: ");
+                    String name = sc.nextLine();
 
-			case 1:
-				System.out.print("Enter person name: ");
-				String name = sc.nextLine();
+                    if (name.isEmpty() || name.matches(".*\\d.*")) {
+                        throw new IllegalArgumentException("Invalid name!");
+                    }
 
-				peopleQueue.add(name);
-				System.out.println(name + " added to queue");
-				break;
+                    peopleQueue.add(name);
+                    System.out.println(name + " added to queue");
+                    break;
 
-			case 2:
+                case 2:
 
-				if (peopleQueue.isEmpty()) {
-					System.out.println("Queue is empty");
-					break;
-				}
+                    if (peopleQueue.isEmpty()) {
+                        System.out.println("Queue is empty");
+                        break;
+                    }
 
-				String person = peopleQueue.peek();
-				System.out.println("\nNow serving: " + person);
+                    String person = peopleQueue.peek();
+                    System.out.println("\nNow serving: " + person);
 
-				int subChoice;
+                    int subChoice = 0;
 
-				do {
-					System.out.println("\n--- BOOK MENU ---");
-					System.out.println("1. Add Book");
-					System.out.println("2. Remove Book");
-					System.out.println("3. Display Books");
-					System.out.println("4. Done (Next Person)");
+                    do {
+                        try {
+                            System.out.println("\n--- BOOK MENU ---");
+                            System.out.println("1. Add Book");
+                            System.out.println("2. Remove Book");
+                            System.out.println("3. Display Books");
+                            System.out.println("4. Done (Next Person)");
 
-					subChoice = sc.nextInt();
-					sc.nextLine();
+                            System.out.print("Enter choice: ");
+                            subChoice = sc.nextInt();
+                            sc.nextLine();
 
-					switch (subChoice) {
+                            switch (subChoice) {
 
-					case 1:
-						System.out.println("Select Book Type:");
-						System.out.println("1. Academic Book");
-						System.out.println("2. Magazine Book");
+                            case 1:
+                                System.out.println("Select Book Type:");
+                                System.out.println("1. Academic Book");
+                                System.out.println("2. Magazine Book");
 
-						int type = sc.nextInt();
-						sc.nextLine();
+                                int type = sc.nextInt();
+                                sc.nextLine();
 
-						System.out.print("Enter ID: ");
-						int id = sc.nextInt();
-						sc.nextLine();
+                                if (type != 1 && type != 2) {
+                                    throw new IllegalArgumentException("Invalid type!");
+                                }
 
-						System.out.print("Enter Title: ");
-						String title = sc.nextLine();
+                                System.out.print("Enter ID: ");
+                                int id = sc.nextInt();
+                                if (id <= 0)
+                                    throw new IllegalArgumentException("ID must be positive");
+                                sc.nextLine();
 
-						System.out.print("Enter Author: ");
-						String author = sc.nextLine();
+                                System.out.print("Enter Title: ");
+                                String title = sc.nextLine();
+                                if (title.isEmpty())
+                                    throw new IllegalArgumentException("Title required");
 
-						if (type == 1) {
-							System.out.print("Enter Subject: ");
-							String subject = sc.nextLine();
+                                System.out.print("Enter Author: ");
+                                String author = sc.nextLine();
+                                if (author.isEmpty())
+                                    throw new IllegalArgumentException("Author required");
 
-							System.out.print("Enter Edition: ");
-							int edition = sc.nextInt();
+                                if (type == 1) {
+                                    System.out.print("Enter Subject: ");
+                                    String subject = sc.nextLine();
+                                    if (subject.isEmpty())
+                                        throw new IllegalArgumentException("Subject required");
 
-							books.add(new AcademicBook(id, title, author, subject, edition));
-							System.out.println("Academic Book Added");
-						} else if (type == 2) {
-							try {
-								System.out.print("Enter Month (JAN, FEB, ...): ");
-								String m = sc.nextLine().toUpperCase();
+                                    System.out.print("Enter Edition: ");
+                                    int edition = sc.nextInt();
+                                    if (edition <= 0)
+                                        throw new IllegalArgumentException("Edition must be positive");
 
-								Month month = Month.valueOf(m);
+                                    books.add(new AcademicBook(id, title, author, subject, edition));
+                                    System.out.println("✅ Academic Book Added");
 
-								books.add(new MegazineBook(id, title, author, month));
-								System.out.println("Magazine Book Added");
+                                } else {
+                                    try {
+                                        System.out.print("Enter Month (JAN, FEB, ...): ");
+                                        String m = sc.nextLine().toUpperCase();
 
-							} catch (Exception e) {
-								System.out.println("Invalid month!");
-							}
-						}
-						break;
+                                        Month month = Month.valueOf(m);
 
-					case 2:
-						System.out.print("Enter ID to remove: ");
-						int removeId = sc.nextInt();
+                                        books.add(new MegazineBook(id, title, author, month));
+                                        System.out.println(" Magazine Book Added");
 
-						books.removeIf(b -> b.getId() == removeId);
-						System.out.println("Book removed if existed");
-						break;
+                                    } catch (Exception e) {
+                                        System.out.println(" Invalid month!");
+                                    }
+                                }
+                                break;
 
-					case 3:
-						if (books.isEmpty()) {
-							System.out.println("No books available");
-						} else {
-							for (Book b : books) {
-								System.out.println(b);
-							}
-						}
-						break;
+                            case 2:
+                                System.out.print("Enter ID to remove: ");
+                                int removeId = sc.nextInt();
 
-					case 4:
-						System.out.println("Moving to next person...");
-						break;
-					}
+                                boolean removed = books.removeIf(b -> b.getId() == removeId);
 
-				} while (subChoice != 4);
+                                if (removed)
+                                    System.out.println("Book removed");
+                                else
+                                    System.out.println(" Book not found");
 
-				peopleQueue.poll();
-				System.out.println(person + " processed and removed from queue");
+                                break;
 
-				break;
+                            case 3:
+                                if (books.isEmpty()) {
+                                    System.out.println("No books available");
+                                } else {
+                                    for (Book b : books) {
+                                        System.out.println(b);
+                                    }
+                                }
+                                break;
 
-			case 3:
-				System.out.println("Exit");
-				break;
-			}
+                            case 4:
+                                System.out.println("Moving to next person...");
+                                break;
 
-		} while (mainChoice != 3);
+                            default:
+                                System.out.println("Invalid choice!");
+                            }
 
-		sc.close();
-	}
+                        } catch (InputMismatchException e) {
+                            System.out.println(" Invalid input type!");
+                            sc.nextLine();
+                        } catch (IllegalArgumentException e) {
+                            System.out.println( e.getMessage());
+                        }
+
+                    } while (subChoice != 4);
+
+                    peopleQueue.poll();
+                    System.out.println(person + " processed and removed from queue");
+                    break;
+
+                case 3:
+                    System.out.println("Exit");
+                    break;
+
+                default:
+                    System.out.println("Invalid choice!");
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("❌ Please enter correct numeric value!");
+                sc.nextLine();
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+
+        } while (mainChoice != 3);
+
+        sc.close();
+    }
 }
