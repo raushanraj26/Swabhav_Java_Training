@@ -70,7 +70,7 @@ public class GameController {
 				break;
 			}
 
-			System.out.println("Enter row col number (1-9) or 0 to exit:");
+			System.out.println("Enter row,col and number (1-9) or 0 to exit:");
 			if (!sc.hasNextInt()) {
 				System.out.println("Enter valid row number");
 				sc.next();
