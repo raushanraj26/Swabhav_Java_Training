@@ -1,54 +1,126 @@
 package com.monocept.IMS.model.ServiceClass;
 
-import com.monocept.IMS.model.Product.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import com.monocept.IMS.model.Product.Product;
+import com.monocept.IMS.model.Notification.Notifier;
+
 public class InventoryService {
-	private List<Product> products;
-	
-	public InventoryService() {
-		products = new ArrayList<>();
-	}
 
-	public void addProduct(Product p) {
-		products.add(p);
-	}
+    private List<Product> products;
+    private List<Notifier> notifierChannel;
 
-	public void addStock(Product p, int qty) {
-		if (!products.contains(p)) {
-			System.out.println("This Product is not available");
-			return;
-			
-		}
-		if (qty <= 0) {
-			System.out.println("Quantity must be Positive!");
-			return;
-		}
-		p.setStock(p.getStock()+qty);
+    // Constructor
+    public InventoryService() {
+        products = new ArrayList<>();
+        notifierChannel = new ArrayList<>();
+    }
 
-	}
+    // Add Product (prevent duplicate ID)
+    public void addProduct(Product p) {
 
-	public void removeStock(Product p, int qty) {
-		if (!products.contains(p)) {
-			System.out.println("This Product is not available");
-			return;
-			
-		}
+        if (findProductById(p.getId()) != null) {
+            System.out.println("Product with this ID already exists!");
+            return;
+        }
 
-		if(qty<=0) {
-			System.out.println("Quantity must be Positive!");
-			return;
-			
-		}
-		if(p.getStock()<qty) {
-			System.out.println("Less Stock! cannot remove");
-			return;
-			
-			
-		}
-		p.setStock(p.getStock()-qty);
-	}
+        products.add(p);
+    }
 
+    // Add Notifier
+    public void addNotifier(Notifier notifier) {
+        notifierChannel.add(notifier);
+    }
+
+    // Find Product by ID
+    public Product findProductById(int id) {
+
+        for (Product p : products) {
+            if (p.getId() == id) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    // Add Stock
+    public void addStock(Product p, int qty) {
+
+        if (qty <= 0) {
+            System.out.println("Quantity must be positive!");
+            return;
+        }
+
+        Product existing = findProductById(p.getId());
+
+        if (existing == null) {
+            System.out.println("Product not found!");
+            return;
+        }
+
+        existing.setStock(existing.getStock() + qty);
+        System.out.println("STock added and Stock become"+existing.getStock());
+    }
+
+    // Remove Stock
+    public void removeStock(Product p, int qty) {
+
+        if (qty <= 0) {
+            System.out.println("Quantity must be positive!");
+            return;
+        }
+
+        Product existing = findProductById(p.getId());
+
+        if (existing == null) {
+            System.out.println("Product not found!");
+            return;
+        }
+
+        if (existing.getStock() < qty) {
+            System.out.println("Less stock! Cannot remove.");
+            return;
+        }
+
+        
+        existing.setStock(existing.getStock() - qty);
+        System.out.println("STock removed and Stock become"+existing.getStock());
+
+        // Check threshold 
+        if (existing.getStock() < existing.getThreshold()) {
+
+            String msg = "Low stock alert! Product: " +
+                         existing.getName() +
+                         ", Remaining: " + existing.getStock();
+
+            if (notifierChannel.isEmpty()) {
+                System.out.println("No notifier configured");
+            } else {
+                for (Notifier n : notifierChannel) {
+                    n.sendNotification(msg);
+                }
+            }
+        }
+    }
+
+    // Show All Products
+    public void showAllProducts() {
+
+        if (products.isEmpty()) {
+            System.out.println("No products available");
+            return;
+        }
+
+        System.out.println("ID\tName\tPrice\tStock");
+
+        for (Product p : products) {
+            System.out.println(
+                p.getId() + "\t" +
+                p.getName() + "\t" +
+                p.getPrice() + "\t" +
+                p.getStock()
+            );
+        }
+    }
 }
