@@ -48,17 +48,28 @@ public class InventoryManagementTest {
 
                         System.out.print("Enter Price: ");
                         double price = scanner.nextDouble();
+                        if (price < 0) {
+                            System.out.println("Price cannot be negative!");
+                           continue; // go back to menu / retry
+                        }
 
                         System.out.print("Enter Initial Stock: ");
                         int stock = scanner.nextInt();
+                        if (stock < 0) {
+                            System.out.println("Stock cannot be negative!");
+                            continue;
+                        }
 
                         System.out.print("Enter Threshold: ");
                         int threshold = scanner.nextInt();
+                        if (threshold < 0) {
+                            System.out.println("Threshold cannot be negative!");
+                           continue;
+                        }
 
                         Product p = new Product(id, name, price, stock, threshold);
                         service.addProduct(p);
 
-                        System.out.println("Product added successfully!");
 
                     } catch (Exception e) {
                         System.out.println("Invalid input! Try again.");
@@ -73,6 +84,11 @@ public class InventoryManagementTest {
 
                         System.out.print("Enter Quantity to Add: ");
                         int qty = scanner.nextInt();
+                        if (qty < 0) {
+                            System.out.println("Quantity cannot be negative!");
+                            continue;
+                        }
+
 
                         Product p = service.findProductById(id);
 
@@ -80,7 +96,7 @@ public class InventoryManagementTest {
                             System.out.println("Product not found!");
                         } else {
                             service.addStock(p, qty);
-                            System.out.println("Stock added!");
+                           
                         }
 
                     } catch (Exception e) {
@@ -96,6 +112,10 @@ public class InventoryManagementTest {
 
                         System.out.print("Enter Quantity to Remove: ");
                         int qty = scanner.nextInt();
+                        if (qty < 0) {
+                            System.out.println("Quantity cannot be negative!");
+                            continue;
+                        }
 
                         Product p = service.findProductById(id);
 

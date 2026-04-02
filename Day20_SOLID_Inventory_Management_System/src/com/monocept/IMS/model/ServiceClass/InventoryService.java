@@ -26,11 +26,13 @@ public class InventoryService {
         }
 
         products.add(p);
+        System.out.println("Product added!");
     }
 
     // Add Notifier
     public void addNotifier(Notifier notifier) {
         notifierChannel.add(notifier);
+        System.out.println("Notifier added!");
     }
 
     // Find Product by ID
@@ -88,7 +90,7 @@ public class InventoryService {
         System.out.println("STock removed and Stock become"+existing.getStock());
 
         // Check threshold 
-        if (existing.getStock() < existing.getThreshold()) {
+        if (existing.getStock() <= existing.getThreshold()) {
 
             String msg = "Low stock alert! Product: " +
                          existing.getName() +
