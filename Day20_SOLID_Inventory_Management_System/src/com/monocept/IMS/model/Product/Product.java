@@ -1,6 +1,6 @@
 package com.monocept.IMS.model.Product;
 
- public class Product {
+ public abstract class Product {
 	private int id;
 	private String name;
 	private int stock;
@@ -39,4 +39,5 @@ package com.monocept.IMS.model.Product;
 		    }
 	    this.stock = stock;
 	} 
+	public abstract void showDetails();
 }

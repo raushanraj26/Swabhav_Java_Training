@@ -97,13 +97,20 @@ public class InventoryService {
                          ", Remaining: " + existing.getStock();
 
             if (notifierChannel.isEmpty()) {
-                System.out.println("No notifier configured");
+                System.out.println("No notifier configured so can't send Notification");
             } else {
                 for (Notifier n : notifierChannel) {
                     n.sendNotification(msg);
                 }
             }
         }
+        //reoorder
+        int reorderQty = existing.getThreshold();
+
+        existing.setStock(existing.getStock() + reorderQty);
+
+        System.out.println("Auto Reorder done! Added " + reorderQty +
+                           " units to " + existing.getName());
     }
 
     // Show All Products
@@ -114,15 +121,10 @@ public class InventoryService {
             return;
         }
 
-        System.out.println("ID\tName\tPrice\tStock");
+        System.out.println("ID\tName\tPrice\tStock\tType\tExpiry");
 
         for (Product p : products) {
-            System.out.println(
-                p.getId() + "\t" +
-                p.getName() + "\t" +
-                p.getPrice() + "\t" +
-                p.getStock()
-            );
+            p.showDetails(); // polymorphism
         }
     }
 }
