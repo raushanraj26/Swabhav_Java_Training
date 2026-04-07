@@ -6,7 +6,7 @@ public class Board {
 	    public Board() {
 	        grid = new char[3][3];
 
-	        // Initialize board with empty space
+	        // Initialize board 
 	        int num=0;
 	        for(int i = 0; i < 3; i++) {
 	            for(int j = 0; j < 3; j++) {

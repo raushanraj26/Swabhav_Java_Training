@@ -8,7 +8,7 @@ public class HumanGame {
 
         Scanner sc = new Scanner(System.in);
 
-        while (true) { // ⭐ outer loop
+        while (true) { 
 
             GameFacade facade = new GameFacade();
 
@@ -77,7 +77,7 @@ public class HumanGame {
 
                 boolean gameOver = facade.makeMove(position);
 
-                if (gameOver) break; // exit inner loop
+                if (gameOver) break; 
             }
 
             //ask for continue or not
