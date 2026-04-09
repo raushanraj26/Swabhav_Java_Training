@@ -11,40 +11,32 @@ public class HumanGame {
         while (true) { 
 
             GameFacade facade = new GameFacade();
+            
 
             // Player 1
-            String name1;
-            while (true) {
-                System.out.print("Enter the name of first player: ");
-                name1 = sc.nextLine().trim();
-                if (name1.isEmpty()) {
-                    System.out.println("Name cannot be empty!");
-                } else {
-                    break;
-                }
+            System.out.print("Enter the name of first player: ");
+            String name1=sc.nextLine().trim();
+            
+            while(!facade.validateName(name1)) {
+            	System.out.print("Again Enter the name of first player: ");
+            	name1=sc.nextLine().trim();
             }
 
-            char symbol1;
-            while (true) {
-                System.out.print("Enter symbol (X or O): ");
+            System.out.print("Enter symbol (X or O): ");
+            char symbol1=Character.toUpperCase(sc.next().charAt(0));
+            while (!facade.validateSymbol(symbol1)) {
+                System.out.print("Again Enter symbol (X or O): ");
                 symbol1 = Character.toUpperCase(sc.next().charAt(0));
-
-                if (symbol1 == 'X' || symbol1 == 'O') break;
-                else System.out.println("Invalid symbol!");
             }
 
             sc.nextLine();
 
             // Player 2
-            String name2;
-            while (true) {
-                System.out.print("Enter the name of second player: ");
+            System.out.print("Enter the name of second player: ");
+            String name2 = sc.nextLine().trim();
+            while (!facade.validateName(name2)) {
+                System.out.print("Again Enter the name of second player: ");
                 name2 = sc.nextLine().trim();
-                if (name2.isEmpty()) {
-                    System.out.println("Name cannot be empty!");
-                } else {
-                    break;
-                }
             }
             
             facade.setPlayers(name1, symbol1, name2);

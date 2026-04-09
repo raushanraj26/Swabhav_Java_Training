@@ -2,10 +2,12 @@ package com.monocept.Facade;
 
 import com.monocept.model.Board;
 import com.monocept.model.GameLogic;
+import com.monocept.model.InputHandler;
 import com.monocept.model.Player;
 
 public class GameFacade {
 	private Board board;
+	private InputHandler validate;
 	private GameLogic logic;
 	private Player player1;
 	private Player player2;
@@ -14,6 +16,7 @@ public class GameFacade {
 	public GameFacade() {
 		board = new Board();
 		logic = new GameLogic();
+		validate=new InputHandler();
 	}
 
 	public void displayBoard() {
@@ -77,6 +80,13 @@ public class GameFacade {
 	
 	public  String currentPlayerName() {
 		return currplayer.getName();
+	}
+	public boolean validateName(String name) {
+		return validate.validateName(name);
+	}
+	
+	public boolean validateSymbol(char symbol) {
+		return validate.validateSymbol(symbol);
 	}
 
 }
