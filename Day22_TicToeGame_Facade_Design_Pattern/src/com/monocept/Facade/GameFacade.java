@@ -88,5 +88,20 @@ public class GameFacade {
 	public boolean validateSymbol(char symbol) {
 		return validate.validateSymbol(symbol);
 	}
+	public boolean validatePosition(int position) {
+		return validate.validatePosition(position);
+	}
 
+	public char currentPlayerSymbol() {
+		return currplayer.getSymbol();
+	}
+
+	public boolean isPositionEmpty(int position) {
+		int row = position / 3;
+		int col = position % 3;
+
+		// empty means it is not already X or O
+		char cell = board.getGrid()[row][col];
+		return (cell != 'X' && cell != 'O');
+	}
 }

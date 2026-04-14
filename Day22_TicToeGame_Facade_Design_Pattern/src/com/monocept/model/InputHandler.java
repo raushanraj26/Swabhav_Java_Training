@@ -17,5 +17,12 @@ public class InputHandler {
 		return false;
 	}
 	
+	public boolean validatePosition(int position) {
+		if (position >= 0 && position <= 8) {
+			return true;
+		}
+		return false;
+	}
+	
 
 }
