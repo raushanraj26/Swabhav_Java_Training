@@ -12,6 +12,9 @@ public class Calculator {
         return x *y;
     }
 	public static int divide(int x, int y) {
+		if(y==0) {
+			throw new ArithmeticException("cannot divide");
+		}
         return x /y;
     }
 

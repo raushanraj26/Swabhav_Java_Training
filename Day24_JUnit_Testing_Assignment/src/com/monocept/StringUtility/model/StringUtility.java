@@ -14,6 +14,7 @@ public  class StringUtility {
 	
 	public static int getLength(String str) {
         if (str == null) return 0;
+        if(str.trim().length()==0) return 0;
         return str.length();
     }
 

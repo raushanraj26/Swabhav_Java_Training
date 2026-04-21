@@ -6,6 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import com.monocept.BankAccount.model.Account;
 
@@ -23,41 +26,90 @@ public class BankAccountTest {
 	    void tearDown() {
 	        account = null;
 	    }
-
-	    @Test
-	    void testDepositValid() {
-	        account.deposit(500.0);
-	        assertEquals(1500.0, account.getBalance());
+	    
+	    
+	    @ParameterizedTest
+	    @CsvSource({
+	        "1000, 500, 1500",
+	        "1000, 200, 1200",
+	        "1000, 0.5, 1000.5"
+	    })
+	    void shouldIncreaseBalanceWhenDepositIsValid(double initial, double amount, double expected) {
+	        Account acc = new Account(initial);
+	        acc.deposit(amount);
+	        assertEquals(expected, acc.getBalance(), 0.001);
 	    }
-
-	    @Test
-	    void testWithdrawValid() {
-	        account.withdraw(200.0);
-	        assertEquals(800.0, account.getBalance());
+	    
+	    @ParameterizedTest
+	    @CsvSource({
+	        "1000, 200, 800",
+	        "1000, 500, 500",
+	        "1000, 1000, 0"
+	    })
+	    void shouldDecreaseBalanceWhenWithdrawIsValid(double initial, double amount, double expected) {
+	        Account acc = new Account(initial);
+	        acc.withdraw(amount);
+	        assertEquals(expected, acc.getBalance(), 0.001);
 	    }
-
-	 
-	    @Test
-	    void testDepositNegative() {
+	    
+	    @ParameterizedTest
+	    @ValueSource(doubles = {-100.0, -1.0, -0.5})
+	    void shouldThrowExceptionWhenDepositIsNegative(double amount) {
 	        assertThrows(IllegalArgumentException.class, () -> {
-	            account.deposit(-100.0);
+	            account.deposit(amount);
 	        });
 	    }
-
-
-	    @Test
-	    void testWithdrawNegative() {
+	    
+	    @ParameterizedTest
+	    @ValueSource(doubles = {-50.0, -1.0})
+	    void shouldThrowExceptionWhenWithdrawIsNegative(double amount) {
 	        assertThrows(IllegalArgumentException.class, () -> {
-	            account.withdraw(-50.0);
+	            account.withdraw(amount);
 	        });
 	    }
-
+	    
 	    @Test
-	    void testWithdrawMoreThanBalance() {
+	    void shouldThrowExceptionWhenWithdrawExceedsBalance() {
 	        assertThrows(IllegalArgumentException.class, () -> {
 	            account.withdraw(2000.0);
 	        });
 	    }
+	    
+//
+//	    @Test
+//	    void testDepositValid() {
+//	        account.deposit(500.0);
+//	        assertEquals(1500.0, account.getBalance());
+//	    }
+//
+//	    @Test
+//	    void testWithdrawValid() {
+//	        account.withdraw(200.0);
+//	        assertEquals(800.0, account.getBalance());
+//	    }
+//
+//	 
+//	    @Test
+//	    void testDepositNegative() {
+//	        assertThrows(IllegalArgumentException.class, () -> {
+//	            account.deposit(-100.0);
+//	        });
+//	    }
+//
+//
+//	    @Test
+//	    void testWithdrawNegative() {
+//	        assertThrows(IllegalArgumentException.class, () -> {
+//	            account.withdraw(-50.0);
+//	        });
+//	    }
+//
+//	    @Test
+//	    void testWithdrawMoreThanBalance() {
+//	        assertThrows(IllegalArgumentException.class, () -> {
+//	            account.withdraw(2000.0);
+//	        });
+//	    }
 
 	    // -------- Multiple Operations --------
 	    @Test
