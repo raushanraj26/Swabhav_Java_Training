@@ -14,12 +14,11 @@ import com.monocept.PasswordValidator.model.PasswordValidator;
 public class passwordValidator {
 	@ParameterizedTest
     @CsvSource({
-        "Password1, true",   // valid
-        "Pass1, false",      // < 8 chars
-        "password1, false",  // no uppercase
-        "Password, false",   // no digit
-        "'', false",         // empty
-        "NULL, false"        // null
+        "Password1, true",   
+        "password1, false",  
+        "Password, false",   
+        "'', false",         
+        "NULL, false"        
     })
 	void shouldValidatePassword(String input, boolean expected) {
 

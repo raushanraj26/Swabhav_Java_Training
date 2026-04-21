@@ -27,7 +27,7 @@ public class Account {
 			 throw new IllegalArgumentException("Balnace insufficient! ");
 			 
 		 }
-		 balance =balance + amount;
+		 balance =balance - amount;
 	 }
 	 
 	 public Double getBalance() {
