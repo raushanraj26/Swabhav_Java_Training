@@ -3,3 +3,10 @@
 *.class
 bin/
 target/
+
+# Ignore JDBC connection files (contain credentials)
+src/com/monconcept/JdbcConnection/DBConnection.java
+src/com/monconcept/JdbcConnection/ConnectionTest.java
+
+# Ignore MySQL connector JAR
+*.jar

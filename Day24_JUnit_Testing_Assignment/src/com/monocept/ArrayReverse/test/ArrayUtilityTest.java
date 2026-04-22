@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import com.monocept.ArrayReverse.model.ArrayUtility;
 
 public class ArrayUtilityTest {
-	// -------- Normal Array --------
+	
     @Test
     void testReverseNormalArray() {
         int[] input = {1, 2, 3, 4};
@@ -17,7 +17,7 @@ public class ArrayUtilityTest {
         assertArrayEquals(expected, ArrayUtility.reverseArray(input));
     }
 
-    // -------- Single Element --------
+    
     @Test
     void testReverseSingleElement() {
         int[] input = {5};
@@ -26,7 +26,6 @@ public class ArrayUtilityTest {
         assertArrayEquals(expected, ArrayUtility.reverseArray(input));
     }
 
-    // -------- Empty Array --------
     @Test
     void testReverseEmptyArray() {
         int[] input = {};
@@ -35,7 +34,7 @@ public class ArrayUtilityTest {
         assertArrayEquals(expected, ArrayUtility.reverseArray(input));
     }
 
-    // -------- Null Case --------
+    
     @Test
     void testReverseNullArray() {
         assertNull(ArrayUtility.reverseArray(null));
