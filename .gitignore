@@ -10,5 +10,5 @@ target/
 *.jar
 
 # Ignore JDBC connection files (contain credentials)
-src/com/monocept/JdbcConnection/DBConnection.java
-src/com/monocept/JdbcConnection/ConnectionTest.java
+Day25_JDBC_Connection/src/com/monocept/JdbcConnection/DBConnection.java
+Day25_JDBC_Connection/src/com/monocept/JdbcConnection/ConnectionTest.java
