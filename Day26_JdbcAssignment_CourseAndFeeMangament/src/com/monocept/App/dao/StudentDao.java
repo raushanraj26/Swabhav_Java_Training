@@ -29,6 +29,28 @@ public class StudentDao {
 	        return false;
 	}
 	
+	
+//	check Student exist or not by id
+	public boolean StudentAlreadyExist(int id) {
+		String sql = "SELECT id FROM student WHERE id=?";
+
+	    try  {
+	    	Connection connection = DButil.getConnection();
+	    	PreparedStatement ps = connection.prepareStatement(sql);
+	        ps.setInt(1, id);
+	        ResultSet rs = ps.executeQuery();
+
+	        return rs.next();
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return false;
+		
+	}
+	
+	
+	
 	//Display student by id
 	public Student getStudentById(int id) {
 		String sql = "SELECT * FROM student WHERE id=?";

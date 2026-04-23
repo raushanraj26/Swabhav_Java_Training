@@ -8,7 +8,7 @@ import com.monocept.App.util.DButil;
 
 public class RegistrationDao {
 	// check duplication of course for a specific student
-	public boolean checkDuplicate(int studentId, String course) {
+	public boolean checkAlreadyEnrollInSameCourse(int studentId, String course) {
 		String sql = "SELECT * FROM registration WHERE student_id=? AND course_name=?";
 
 		try {
@@ -28,7 +28,7 @@ public class RegistrationDao {
 	}
 
 //	register course
-	public boolean registerCourse(Connection con, int studentId, String course, double fee) {
+	public boolean registerCourse( int studentId, String course, double fee) {
 		String sql = "INSERT INTO registration(student_id, course_name, fees_paid) VALUES (?, ?, ?)";
 
 		try {
@@ -65,16 +65,22 @@ public class RegistrationDao {
 
 //display all student with courses
 	public void viewAllStudentsWithCourses() {
-		String sql = "SELECT s.id, s.name, s.branch, r.course_name, r.fees_paid FROM student s JOIN registration r ON s.id = r.student_id";
+		String sql = "SELECT s.id, s.name, s.branch, r.course_name, r.fees_paid FROM student s LEFT JOIN registration r ON s.id = r.student_id";
 
 		try {
 			Connection con = DButil.getConnection();
 			PreparedStatement ps = con.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 
+			
+			boolean found = false; 
 			while (rs.next()) {
+				found=true;
 				System.out.println(rs.getInt("id") + " | " + rs.getString("name") + " | " + rs.getString("branch")
 						+ " | " + rs.getString("course_name") + " | " + rs.getDouble("fees_paid"));
+			}
+			if (!found) {
+			    System.out.println("No students found");
 			}
 
 		} catch (Exception e) {
@@ -84,8 +90,8 @@ public class RegistrationDao {
 	}
 
 	// Display full details of student by id
-	public void getStudentFullDetails(int id) {
-		String sql = "SELECT s.id, s.name, s.branch, r.course_name, r.fees_paid "
+	public void getStudentFullDetailsbyId(int id) {
+		String sql = "SELECT s.id, s.name,s.age, s.branch, r.course_name, r.fees_paid "
 				+ "FROM student s LEFT JOIN registration r ON s.id = r.student_id " + "WHERE s.id=?";
 
 		try {
@@ -99,12 +105,12 @@ public class RegistrationDao {
 
 			while (rs.next()) {
 				found = true;
-				System.out.println(rs.getInt("id") + " | " + rs.getString("name") + " | " + rs.getString("branch")
+				System.out.println(rs.getInt("id") + " | " + rs.getString("name") + " | "+ rs.getInt("age")+" | " + rs.getString("branch")
 						+ " | " + rs.getString("course_name") + " | " + rs.getDouble("fees_paid"));
 			}
 
-			if (!found)
-				System.out.println("Student not found");
+			if (!found) {
+				System.out.println("Student not found");}
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -122,10 +128,14 @@ public class RegistrationDao {
 
 			ps.setDouble(1, amount);
 			ResultSet rs = ps.executeQuery();
-
+boolean found=false;
 			while (rs.next()) {
+				found=true;
 				System.out.println(
 						rs.getString("name") + " | " + rs.getString("course_name") + " | " + rs.getDouble("fees_paid"));
+			}
+			if (!found) {
+			    System.out.println("No students found");
 			}
 
 		} catch (Exception e) {
@@ -142,13 +152,17 @@ public class RegistrationDao {
 	    	Connection con = DButil.getConnection();
 	         PreparedStatement ps = con.prepareStatement(sql);
 	         ResultSet rs = ps.executeQuery();
-
+boolean found=false;
 	        while (rs.next()) {
+	        	found=true;
 	            System.out.println(
 	                rs.getString("course_name") + " -> " +
 	                rs.getInt("total")
 	            );
 	        }
+	        if (!found) {
+			    System.out.println("No students found");
+			}
 
 	    } catch (Exception e) {
 	        e.printStackTrace();
