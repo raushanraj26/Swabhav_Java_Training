@@ -8,12 +8,13 @@ import com.monocept.JdbcConnection.DBConnection;
 
 public class ShowAllRecords {
 	public static void showStudent() {
-        String query = "SELECT * FROM college";
+        
 
-        try (Connection con = DBConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement(query);
-             ResultSet rs = ps.executeQuery()) {
-
+        try  {
+        	Connection con = DBConnection.getConnection();
+        	String query = "SELECT * FROM college";
+        	PreparedStatement ps = con.prepareStatement(query);
+        	ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 System.out.println(
                     rs.getInt("id") + " " +
