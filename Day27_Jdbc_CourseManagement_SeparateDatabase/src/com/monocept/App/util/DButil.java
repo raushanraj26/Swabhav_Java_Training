@@ -1,7 +1,9 @@
 package com.monocept.App.util;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
+
 
 public class DButil {
 	private static final String URL = "jdbc:mysql://localhost:3306/collegemanagement";
