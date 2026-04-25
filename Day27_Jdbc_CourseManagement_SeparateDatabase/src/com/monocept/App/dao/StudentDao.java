@@ -10,25 +10,23 @@ import com.monocept.App.util.DButil;
 public class StudentDao {
 	// addstudent
 	public boolean addStudent(Student s) {
-		String sql = "INSERT INTO student VALUES (?, ?, ?, ?)";
+	    String sql = "INSERT INTO student (id, name, age, branch_id) VALUES (?, ?, ?, ?)";
 
-		try {
-			Connection connection = DButil.getConnection();
-			PreparedStatement ps = connection.prepareStatement(sql);
+	    try (Connection connection = DButil.getConnection();
+	         PreparedStatement ps = connection.prepareStatement(sql)) {
 
-			ps.setInt(1, s.getId());
-			ps.setString(2, s.getName());
-			ps.setInt(3, s.getAge());
-			ps.setString(4, s.getBranch());
+	        ps.setInt(1, s.getId());
+	        ps.setString(2, s.getName());
+	        ps.setInt(3, s.getAge());
+	        ps.setInt(4, s.getBranchId()); // ✅ changed
 
-			return ps.executeUpdate() > 0;
+	        return ps.executeUpdate() > 0;
 
-		} catch (Exception e) {
-			System.out.println("Duplicate ID or DB error");
-		}
-		return false;
+	    } catch (Exception e) {
+	        System.out.println("Error: " + e.getMessage());
+	    }
+	    return false;
 	}
-
 //	check Student exist or not by id
 	public boolean StudentAlreadyExist(int id) {
 		String sql = "SELECT id FROM student WHERE id=?";
@@ -49,43 +47,47 @@ public class StudentDao {
 	}
 
 	// Display student by id
-	public Student getStudentById(int id) {
-		String sql = "SELECT * FROM student WHERE id=?";
+	public void getAllStudents() {
+	    String sql = "SELECT s.id, s.name, s.age, b.branch_id, b.branch_name FROM student s JOIN branch b ON s.branch_id = b.branch_id";
 
-		try {
-			Connection con = DButil.getConnection();
-			PreparedStatement ps = con.prepareStatement(sql);
+	    try (Connection con = DButil.getConnection();
+	         PreparedStatement ps = con.prepareStatement(sql);
+	         ResultSet rs = ps.executeQuery()) {
 
-			ps.setInt(1, id);
-			ResultSet rs = ps.executeQuery();
+	        while (rs.next()) {
+	            System.out.println(
+	                "ID: " + rs.getInt("id") +
+	                ", Name: " + rs.getString("name") +
+	                ", Age: " + rs.getInt("age") +
+	                ", Branch ID: " + rs.getInt("branch_id") +
+	                ", Branch Name: " + rs.getString("branch_name")
+	            );
+	        }
 
-			// it returns only one student,if multiple then use list<student>
-			if (rs.next()) {
-				return new Student(rs.getInt("id"), rs.getString("name"), rs.getInt("age"), rs.getString("branch"));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 
-	// update name and branch of student whose id
-	public boolean updateStudent(int id, String name, String branch) {
-		String sql = "UPDATE student SET name=?, branch=? WHERE id=?";
+	// update name and branch id of student whose id
+	public boolean updateStudent(int id, String name, int branchId) {
 
-		try {
-			Connection con = DButil.getConnection();
-			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setString(1, name);
-			ps.setString(2, branch);
-			ps.setInt(3, id);
+	    String sql = "UPDATE student SET name=?, branch_id=? WHERE id=?";
 
-			return ps.executeUpdate() > 0;
+	    try  {
+	    	Connection con = DButil.getConnection();
+	         PreparedStatement ps = con.prepareStatement(sql);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
+	        ps.setString(1, name);
+	        ps.setInt(2, branchId); 
+	        ps.setInt(3, id);
+
+	        return ps.executeUpdate() > 0;
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return false;
 	}
 
 //	// delete student by id

@@ -4,15 +4,15 @@ public class Student {
 	  private int id;
 	    private String name;
 	    private int age;
-	    private String branch;
+	    private int branchid;
 
 	   
 	   
-	    public Student(int id, String name, int age, String branch) {
+	    public Student(int id, String name, int age, int branchid) {
 	        this.id = id;
 	        this.name = name;
 	        this.age = age;
-	        this.branch = branch;
+	        this.branchid = branchid;
 	    }
 
 	    public int getId() {
@@ -27,8 +27,8 @@ public class Student {
 	        return age;
 	    }
 
-	    public String getBranch() {
-	        return branch;
+	    public int getBranchId() {
+	        return branchid;
 	    }
 
 	    public void setId(int id) {
@@ -43,8 +43,8 @@ public class Student {
 	        this.age = age;
 	    }
 
-	    public void setBranch(String branch) {
-	        this.branch = branch;
+	    public void setBranch(int branchid) {
+	        this.branchid = branchid;
 	    }
 
 	    @Override
@@ -52,7 +52,7 @@ public class Student {
 	        return "Student [id=" + id + 
 	               ", name=" + name + 
 	               ", age=" + age + 
-	               ", branch=" + branch + "]";
+	               ", branch=" + branchid + "]";
 	    }
  
 }

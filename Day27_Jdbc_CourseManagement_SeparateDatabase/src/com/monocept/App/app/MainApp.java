@@ -37,10 +37,12 @@ public class MainApp {
 				System.out.print("Enter ID: ");
 				int id = sc.nextInt();
 				sc.nextLine();
+
 				if (service.isAlreadyIdTaken(id)) {
-					System.out.println("ID already exists! Try again.");
-					break;
+				    System.out.println("ID already exists! Try again.");
+				    break;
 				}
+
 				System.out.print("Enter Name: ");
 				String name = sc.nextLine();
 
@@ -48,34 +50,47 @@ public class MainApp {
 				int age = sc.nextInt();
 				sc.nextLine();
 
-				System.out.print("Enter Branch: ");
-				String branch = sc.nextLine();
+				// 🔥 Show branches
+				service.showBranches();
 
-				Student s = new Student(id, name, age, branch);
+				// 🔥 Take branch ID input
+				System.out.print("Select Branch ID: ");
+				int branchId = sc.nextInt();
+				sc.nextLine();
+
+				// 🔥 Create student with branchId
+				Student s = new Student(id, name, age, branchId);
+
 				service.addStudent(s);
 				break;
 			}
 
 			// 2. Register Course
 			case 2: {
-				System.out.print("Enter Student ID: ");
-				int sid = sc.nextInt();
-				sc.nextLine();
-				//check student with same id avaialable in student table or not then move further
-				if (!service.isAlreadyIdTaken(sid)) {
+			    System.out.print("Enter Student ID: ");
+			    int sid = sc.nextInt();
+			    sc.nextLine();
+
+			    // check student exists
+			    if (!service.isAlreadyIdTaken(sid)) {
 			        System.out.println("Student not found! Please add student first.");
 			        break;
 			    }
 
+			    // 🔥 Show courses
+			    service.showCourses();
 
-				System.out.print("Enter Course: ");
-				String course = sc.nextLine();
+			    // 🔥 Take course_id
+			    System.out.print("Select Course ID: ");
+			    int courseId = sc.nextInt();
 
-				System.out.print("Enter Fee: ");
-				double fee = sc.nextDouble();
+			    System.out.print("Enter Fee: ");
+			    double fee = sc.nextDouble();
 
-				service.registerCourse(sid, course, fee);
-				break;
+			    // 🔥 call with courseId
+			    service.registerCourse(sid, courseId, fee);
+
+			    break;
 			}
 
 			// 3. Show all students
