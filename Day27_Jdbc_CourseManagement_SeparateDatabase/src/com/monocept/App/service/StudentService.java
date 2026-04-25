@@ -91,15 +91,15 @@ public class StudentService {
 //		    }
 	}
 
-//	5.Update name and branch of student
-	public void updateStudent(int id, String name, String branch) {
+//	5.Update name and branch of student whose student id is id
+	public void updateStudent(int id, String name, int branchid) {
 		// check student available or not
 		if (!studentDao.StudentAlreadyExist(id)) {
 			System.out.println("Sorry this student not available");
 			return;
 		}
 
-		if (studentDao.updateStudent(id, name, branch)) {
+		if (studentDao.updateStudent(id, name, branchid)) {
 			System.out.println("updated Successfully!");
 		} else {
 			System.out.println("Failed");
@@ -109,13 +109,13 @@ public class StudentService {
 	}
 
 	// 6.Update course fees
-	public void updateCourseFees(int studentid, String branch, Double fees) {
+	public void updateCourseFees(int studentid, int courseid, Double fees) {
 		if (!studentDao.StudentAlreadyExist(studentid)) {
 			System.out.println("Sorry this student not available");
 			return;
 		}
 
-		if (regDao.updateFee(studentid, branch, fees)) {
+		if (regDao.updateFee(studentid, courseid, fees)) {
 			System.out.println("Updated successfully");
 
 		} else {

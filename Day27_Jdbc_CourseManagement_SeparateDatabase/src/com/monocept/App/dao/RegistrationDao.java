@@ -45,15 +45,15 @@ public class RegistrationDao {
 	}
 
 	// update course fees take parameter as studentid,course name and updated fees
-	public boolean updateFee(int studentId, String course, double fee) {
-		String sql = "UPDATE registration SET fees_paid=? WHERE student_id=? AND course_name=?";
+	public boolean updateFee(int studentId, int courseid, double fee) {
+		String sql = "UPDATE registration SET fees_paid=? WHERE student_id=? AND course_id=?";
 
 		try {
 			Connection connection = DButil.getConnection();
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setDouble(1, fee);
 			ps.setInt(2, studentId);
-			ps.setString(3, course);
+			ps.setInt(3, courseid);
 
 			return ps.executeUpdate() > 0;
 

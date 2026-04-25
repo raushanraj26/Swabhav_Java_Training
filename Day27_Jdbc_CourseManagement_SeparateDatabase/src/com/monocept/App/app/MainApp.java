@@ -50,15 +50,15 @@ public class MainApp {
 				int age = sc.nextInt();
 				sc.nextLine();
 
-				// 🔥 Show branches
+				//
 				service.showBranches();
 
-				// 🔥 Take branch ID input
+				// Take branch ID input
 				System.out.print("Select Branch ID: ");
 				int branchId = sc.nextInt();
 				sc.nextLine();
 
-				// 🔥 Create student with branchId
+				// 
 				Student s = new Student(id, name, age, branchId);
 
 				service.addStudent(s);
@@ -77,17 +77,17 @@ public class MainApp {
 			        break;
 			    }
 
-			    // 🔥 Show courses
+			    //Show courses
 			    service.showCourses();
 
-			    // 🔥 Take course_id
+			    //  Take course_id
 			    System.out.print("Select Course ID: ");
 			    int courseId = sc.nextInt();
 
 			    System.out.print("Enter Fee: ");
 			    double fee = sc.nextDouble();
 
-			    // 🔥 call with courseId
+			    //call with courseId
 			    service.registerCourse(sid, courseId, fee);
 
 			    break;
@@ -107,7 +107,7 @@ public class MainApp {
 				break;
 			}
 
-			// 5. Update student
+			// 5. Update student -"id" student ka name and branch update kr do
 			case 5: {
 				System.out.print("Enter ID: ");
 				int uid = sc.nextInt();
@@ -116,10 +116,14 @@ public class MainApp {
 				System.out.print("Enter new name: ");
 				String newName = sc.nextLine();
 
-				System.out.print("Enter new branch: ");
-				String newBranch = sc.nextLine();
+				//Show courses
+			    service.showBranches();
 
-				service.updateStudent(uid, newName, newBranch);
+			    //  Take course_id
+			    System.out.print("Select new Branch ID: ");
+			    int newBranchid = sc.nextInt();
+
+				service.updateStudent(uid, newName, newBranchid);
 				break;
 			}
 

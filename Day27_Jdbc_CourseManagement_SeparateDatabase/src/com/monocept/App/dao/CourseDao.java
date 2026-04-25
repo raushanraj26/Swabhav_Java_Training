@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import com.monocept.App.util.DButil;
+
 public class CourseDao {
 	public void showCourses() {
 	    String sql = "SELECT course_id, course_name FROM course";
