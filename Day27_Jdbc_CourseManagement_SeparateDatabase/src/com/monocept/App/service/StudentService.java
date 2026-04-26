@@ -3,6 +3,7 @@ package com.monocept.App.service;
 import java.sql.Connection;
 
 import com.monocept.App.dao.BranchDao;
+import com.monocept.App.dao.CourseDao;
 import com.monocept.App.dao.RegistrationDao;
 import com.monocept.App.dao.StudentDao;
 import com.monocept.App.model.Student;
@@ -12,6 +13,7 @@ public class StudentService {
 	private StudentDao studentDao = new StudentDao();
 	private RegistrationDao regDao = new RegistrationDao();
 	private BranchDao branchdao = new BranchDao();
+	private CourseDao coursedao=new CourseDao();
 
 //	    1.add student
 	public void addStudent(Student s) {
@@ -199,6 +201,6 @@ public class StudentService {
 //	13.show all available courses
 	public void showCourses() {
 
-		branchdao.showAllCourses();
+		coursedao.showCourses();
 	}
 }

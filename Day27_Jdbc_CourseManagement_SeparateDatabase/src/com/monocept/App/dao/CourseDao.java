@@ -15,10 +15,15 @@ public class CourseDao {
 	         ResultSet rs = ps.executeQuery()) {
 
 	        System.out.println("Available Courses:");
+	        boolean found=false;
 	        while (rs.next()) {
+	        	found=true;
 	            System.out.println(
 	                rs.getInt("course_id") + " → " + rs.getString("course_name")
 	            );
+	        }
+	        if(!found) {
+	        	System.out.println("No courses Available!");
 	        }
 
 	    } catch (Exception e) {
