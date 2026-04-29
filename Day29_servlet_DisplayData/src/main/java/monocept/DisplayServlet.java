@@ -18,6 +18,7 @@ public class DisplayServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException{
 		// Fetch data
+//		                         take from name="fullname" 
         String name = request.getParameter("fullname");
         String email = request.getParameter("email");
         String phone = request.getParameter("number");
