@@ -53,7 +53,7 @@ public class InputValidator {
         return null;
     }
 
-    // Validate Course Name (for cancel case)
+    // Validate Course Name 
     public static String validateCourseName(String course) {
         if (course == null || course.trim().isEmpty()) {
             return "Course name cannot be empty.";

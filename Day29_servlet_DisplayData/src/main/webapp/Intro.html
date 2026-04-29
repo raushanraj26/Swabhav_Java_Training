@@ -1,0 +1,39 @@
+
+<!--  http://localhost:8080/Day29_servlet_DisplayData/Intro.html
+data fill krne ke bad servlet class ke throuh display hoga then uska url v chnage hoga  -->
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>User Form</title>
+</head>
+<body>
+<h2>User Registration Form</h2>
+<form action="display" method="post">
+    <label for="name"> Name:</label><br>
+    <input type="text" id="name" name="fullname" placeholder="Enter your name" required><br><br>
+    
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" placeholder="Enter your email" required><br><br>
+    
+    <label for="number">Phone Number:</label><br>
+    <input type="number" id="number" name="number" placeholder="Enter your phone number" required><br><br>
+    
+     <label>Gender:</label><br>
+    <input type="radio" id="male" name="gender" value="male">
+    <label for="male">Male</label><br>
+    <input type="radio" id="female" name="gender" value="female">
+    <label for="female">Female</label><br><br>
+    
+     <!-- Textarea -->
+    <label for="address">Address:</label><br>
+    <textarea id="address" name="address" rows="4" cols="15" placeholder="arite adress.."></textarea><br><br>
+    
+    <!-- Submit button -->
+    <input type="submit" value="submit">
+</form>
+
+
+</body>
+</html>
