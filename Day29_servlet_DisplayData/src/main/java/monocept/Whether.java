@@ -1,3 +1,17 @@
+
+
+// Assignment 1: Weather Info Servlet (Weather Domain) 
+//Problem Statement: 
+//Create a servlet /weather that accepts a city name as a parameter and displays dummy 
+//weather data for that city. 
+//Requirements: 
+// Accept a query parameter city. 
+// Validate that the city name is not empty. 
+// Display hardcoded temperature, humidity, and forecast info based on city name. 
+// Return error message if city is invalid. 
+//Sample URL: 
+//http://localhost:8080/weather?city=Delhi
+
 package monocept;
 
 import java.io.IOException;
