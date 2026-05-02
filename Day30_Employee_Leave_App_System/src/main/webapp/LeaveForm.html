@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Leave Form</title>
+</head>
+<body>
+<h2>Leave Application Form</h2>
+
+<form action="leave" method="post">
+
+    Name: <input type="text" name="name"><br><br>
+
+    Employee ID: <input type="text" name="id"><br><br>
+
+    Department: 
+    <input type="text" name="dept"><br><br>
+
+    Leave Type:
+    <select name="type">
+        <option value="">Select</option>
+        <option value="Sick">Sick Leave</option>
+        <option value="Casual">Casual Leave</option>
+        <option value="Emergency">Emergency Leave</option>
+        <option value="WFH">Work From Home</option>
+    </select><br><br>
+
+    Number of Days:
+    <input type="number" name="days"><br><br>
+
+    Reason:
+    <textarea name="reason"></textarea><br><br>
+
+    <button type="submit">Apply Leave</button>
+
+</form>
+
+</body>
+</html>
