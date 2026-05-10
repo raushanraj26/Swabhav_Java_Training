@@ -35,11 +35,13 @@ public class LeaveServlet extends HttpServlet {
         String daysStr = request.getParameter("days");
         String reason = request.getParameter("reason");
      // 2. Validation
+        String error=null;
         if (name.isEmpty() || id.isEmpty() || dept.isEmpty() || type == null
                 || daysStr.isEmpty() || reason.length() < 10) {
 
 //            response.sendRedirect("LeaveForm.html"); 
 //            return;
+        	error="name error";
         	RequestDispatcher rd = request.getRequestDispatcher("LeaveForm.html");
             rd.include(request, response);
             return;
