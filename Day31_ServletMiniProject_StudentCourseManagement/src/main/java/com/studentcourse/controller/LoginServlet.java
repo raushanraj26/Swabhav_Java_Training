@@ -15,43 +15,28 @@ import jakarta.servlet.http.HttpSession;
 @WebServlet("/login-action")
 public class LoginServlet extends HttpServlet {
 
-    protected void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-        String username = request.getParameter("username");
+		String username = request.getParameter("username");
 
-        String password = request.getParameter("password");
-        System.out.println(username);
-        System.out.println(password);
-        AdminDAO dao = new AdminDAO();
+		String password = request.getParameter("password");
+		System.out.println(username);
+		System.out.println(password);
+		AdminDAO dao = new AdminDAO();
 
-        boolean status =
-                dao.validateAdmin(username, password);
+		boolean status = dao.validateAdmin(username, password);
 
-        if(status) {
+		if (status) {
+			HttpSession session = request.getSession();
+			session.setAttribute("loggedInUser", username);
+			// DashboardServlet.java pe redirect ho rha
+			response.sendRedirect("dashboard");
 
-            HttpSession session =
-                    request.getSession();
-
-            session.setAttribute(
-                    "loggedInUser",
-                    username
-            );
-
-            response.sendRedirect("dashboard");
-
-        } else {
-
-            request.setAttribute(
-                    "error",
-                    "Invalid Username or Password"
-            );
-
-            RequestDispatcher rd =
-                    request.getRequestDispatcher(
-                        "Views/Login.jsp"
-                    );
-
-            rd.forward(request, response);
-        }
-    }
+		} else {
+			request.setAttribute("error", "Invalid Username or Password");
+			RequestDispatcher rd = request.getRequestDispatcher("Views/Login.jsp"); 
+			rd.forward(request, response);
+		}
+	}
 }
