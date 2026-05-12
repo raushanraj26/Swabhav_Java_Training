@@ -2,7 +2,7 @@ package com.studentcourse.Model;
 
 public class Student {
 
-   
+   private int studentId;
     private String studentName;
     private String email;
     private String phone;
@@ -13,14 +13,14 @@ public class Student {
 
     }
 
-    public Student(
+    public Student(int studentId,
                    String studentName,
                    String email,
                    String phone,
                    int age,
                    String city) {
 
-    
+    this.studentId=studentId;
         this.studentName = studentName;
         this.email = email;
         this.phone = phone;
@@ -28,13 +28,13 @@ public class Student {
         this.city = city;
     }
 
-//    public int getStudentId() {
-//        return studentId;
-//    }
+    public int getStudentId() {
+      return studentId;
+   }
 
-//    public void setStudentId(int studentId) {
-//        this.studentId = studentId;
-//    }
+   public void setStudentId(int studentId) {
+      this.studentId = studentId;
+   }
 
     public String getStudentName() {
         return studentName;

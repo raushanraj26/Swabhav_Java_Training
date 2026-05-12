@@ -4,41 +4,32 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Student-form</title>
+<title>Add Student</title>
 </head>
 <body>
 
 <h2>Add Student</h2>
 
-<p style="color:red;">
-${error}
-</p>
-
-<form action="student/add" method="post">
+<form action="AddStudentServlet" method="post">
 
     Name:
-    <input type="text" name="studentName">
-
+    <input type="text" name="studentName" required>
     <br><br>
 
     Email:
-    <input type="email" name="email">
-
+    <input type="email" name="email" required>
     <br><br>
 
     Phone:
-    <input type="text" name="phone">
-
+    <input type="text" name="phone" required>
     <br><br>
 
     Age:
-    <input type="number" name="age">
-
+    <input type="number" name="age" min="18" required>
     <br><br>
 
     City:
-    <input type="text" name="city">
-
+    <input type="text" name="city" required>
     <br><br>
 
     <input type="submit" value="Add Student">

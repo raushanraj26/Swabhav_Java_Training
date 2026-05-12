@@ -13,70 +13,36 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet("/student/add")
+@WebServlet("/AddStudentServlet")
 public class AddStudentServlet extends HttpServlet {
 
     public void init() {
         System.out.println("AddStudentServlet Initialized");
     }
 
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
-                         throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        HttpSession session =
-                request.getSession(false);
+        HttpSession session = request.getSession(false);
 
-        if(session == null ||
-           session.getAttribute("loggedInUser") == null) {
-
+        if(session == null ||session.getAttribute("loggedInUser") == null) {
             response.sendRedirect("login");
             return;
         }
-
-        RequestDispatcher rd =
-            request.getRequestDispatcher(
-                "Views/student-form.jsp"
-            );
-
+        RequestDispatcher rd =  request.getRequestDispatcher( "Views/add-student.jsp"  );
         rd.forward(request,response);
     }
 
-    protected void doPost(HttpServletRequest request,
-                          HttpServletResponse response)
-                          throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request,  HttpServletResponse response)  throws ServletException, IOException {
 
-        String studentName =
-                request.getParameter("studentName");
-
-        String email =
-                request.getParameter("email");
-
-        String phone =
-                request.getParameter("phone");
-
-        int age =
-            Integer.parseInt(
-                request.getParameter("age")
-            );
-
-        String city =
-                request.getParameter("city");
-
+        String studentName = request.getParameter("studentName");
+        String email = request.getParameter("email");
+        String phone =  request.getParameter("phone");
+        int age = Integer.parseInt( request.getParameter("age")  );
+        String city = request.getParameter("city");
         if(age < 18) {
-
-            request.setAttribute(
-                "error",
-                "Age must be 18 or above"
-            );
-
-            RequestDispatcher rd =
-                request.getRequestDispatcher(
-                    "Views/student-form.jsp"
-                );
-
+            request.setAttribute( "error","Age must be 18 or above" );
+            RequestDispatcher rd =request.getRequestDispatcher( "Views/add-student.jsp"  );
             rd.forward(request,response);
-
             return;
         }
 
@@ -91,7 +57,7 @@ public class AddStudentServlet extends HttpServlet {
         StudentDAO dao = new StudentDAO();
 
         dao.addStudent(student);
-
+//View all students
         response.sendRedirect("students");
     }
 }
