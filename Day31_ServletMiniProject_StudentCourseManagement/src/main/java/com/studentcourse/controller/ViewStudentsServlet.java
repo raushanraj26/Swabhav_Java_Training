@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpSession;
 @WebServlet("/students")
 public class ViewStudentsServlet extends HttpServlet {
 
-    protected void doGet(HttpServletRequest request,
+   protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
                          throws ServletException, IOException {
 

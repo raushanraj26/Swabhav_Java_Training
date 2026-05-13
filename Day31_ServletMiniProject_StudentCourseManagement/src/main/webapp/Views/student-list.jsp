@@ -81,7 +81,7 @@
 
     <td>
 
-        <a href="edit-student.jsp?id=<%= student.getStudentId() %>">
+        <a href="EditStudentServlet?id=<%= student.getStudentId() %>">
             Edit
         </a>
 
