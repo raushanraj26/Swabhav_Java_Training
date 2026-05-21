@@ -1,52 +1,29 @@
 package com.studentcourse.controller;
 
-
-
 import java.io.IOException;
 
 import com.studentcourse.dao.RegistrationDAO;
 
-import jakarta.servlet.ServletException;
+import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.*;
 
-@WebServlet("/deleteregistration")
-public class DeleteRegistrationServlet
-        extends HttpServlet {
+@WebServlet("/registration/delete")
+public class DeleteRegistrationServlet extends HttpServlet {
 
-    @Override
-    protected void doGet(
-            HttpServletRequest request,
-            HttpServletResponse response)
-            throws ServletException, IOException {
+	private static final long serialVersionUID = 1L;
 
-        HttpSession session =
-                request.getSession(false);
+	private RegistrationDAO registrationDAO = new RegistrationDAO();
 
-        if(session == null ||
-           session.getAttribute("loggedInUser") == null) {
-
-            response.sendRedirect("login");
-
-            return;
-        }
-
-        int registrationId =
-            Integer.parseInt(
-                request.getParameter("id")
-            );
-
-        RegistrationDAO dao =
-                new RegistrationDAO();
-
-        dao.deleteRegistration(registrationId);
-
-        response.sendRedirect(
-                
-                "registrations"
-        );
-    }
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		if (session == null || session.getAttribute("loggedInUser") == null) {
+			response.sendRedirect(request.getContextPath() + "/login");
+			return;
+		}
+		int id = Integer.parseInt(request.getParameter("id"));
+		registrationDAO.deleteRegistration(id);
+		response.sendRedirect(request.getContextPath() + "/registrations");
+	}
 }

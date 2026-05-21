@@ -2,34 +2,44 @@ package com.studentcourse.controller;
 
 import java.io.IOException;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-
 import com.studentcourse.dao.StudentDAO;
+import com.studentcourse.exception.DAOException;
 
-@WebServlet("/DeleteStudentServlet")
+import jakarta.servlet.*;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.*;
+
+@WebServlet("/student/delete")
 public class DeleteStudentServlet extends HttpServlet {
 
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
-                         throws ServletException, IOException {
+	private static final long serialVersionUID = 1L;
 
-        int studentId =
-            Integer.parseInt(
-                request.getParameter("id")
-            );
+	private StudentDAO studentDAO = new StudentDAO();
 
-        StudentDAO dao =
-                new StudentDAO();
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		if (session == null || session.getAttribute("loggedInUser") == null) {
+			response.sendRedirect(request.getContextPath() + "/login");
+			return;
+		}
 
-        dao.deleteStudent(studentId);
+		String idStr = request.getParameter("id");
+		if (idStr == null || idStr.isEmpty()) {
+			response.sendRedirect(request.getContextPath() + "/students");
+			return;
+		}
 
-//        response.sendRedirect(
-//                request.getContextPath() + "/students"
-//        );
-        response.sendRedirect("students");
-    }
+		int id = Integer.parseInt(idStr);
+
+		try {
+			studentDAO.deleteStudent(id);
+			response.sendRedirect(request.getContextPath() + "/students");
+		} catch (DAOException e) {
+
+			request.setAttribute("errorMessage", e.getMessage());
+			request.setAttribute("studentList", studentDAO.getAllStudents());
+			request.getRequestDispatcher("/WEB-INF/views/student-list.jsp").forward(request, response);
+		}
+	}
 }

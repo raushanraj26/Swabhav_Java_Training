@@ -1,41 +1,28 @@
 package com.studentcourse.controller;
 
 import java.io.IOException;
-import java.util.List;
 
-import com.studentcourse.Model.Course;
 import com.studentcourse.dao.CourseDAO;
 
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.ServletException;
+import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.*;
 
 @WebServlet("/courses")
 public class ViewCoursesServlet extends HttpServlet {
 
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
-                         throws ServletException, IOException {
+	private static final long serialVersionUID = 1L;
 
-//        CourseDAO dao =
-//                new CourseDAO();
-//
-//        List<Course> courseList =
-//                dao.getAllCourses();
-//
-//        request.setAttribute(
-//                "courseList",
-//                courseList
-//        );
+	private CourseDAO courseDAO = new CourseDAO();
 
-        RequestDispatcher rd =
-            request.getRequestDispatcher(
-                "Views/course-list.jsp"
-            );
-
-        rd.forward(request,response);
-    }
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		if (session == null || session.getAttribute("loggedInUser") == null) {
+			response.sendRedirect(request.getContextPath() + "/login");
+			return;
+		}
+		request.setAttribute("courseList", courseDAO.getAllCourses());
+		request.getRequestDispatcher("/WEB-INF/views/course-list.jsp").forward(request, response);
+	}
 }

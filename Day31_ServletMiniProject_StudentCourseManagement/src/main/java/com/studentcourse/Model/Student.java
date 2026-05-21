@@ -1,78 +1,61 @@
 package com.studentcourse.Model;
 
 public class Student {
+	private int studentId;
+	private String studentName;
+	private String email;
+	private String phone;
+	private int age;
+	private String city;
 
-   private int studentId;
-    private String studentName;
-    private String email;
-    private String phone;
-    private int age;
-    private String city;
+	public Student() {
+	}
 
-    public Student() {
+	public int getStudentId() {
+		return studentId;
+	}
 
-    }
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
 
-    public Student(int studentId,
-                   String studentName,
-                   String email,
-                   String phone,
-                   int age,
-                   String city) {
+	public String getStudentName() {
+		return studentName;
+	}
 
-    this.studentId=studentId;
-        this.studentName = studentName;
-        this.email = email;
-        this.phone = phone;
-        this.age = age;
-        this.city = city;
-    }
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
 
-    public int getStudentId() {
-      return studentId;
-   }
+	public String getEmail() {
+		return email;
+	}
 
-   public void setStudentId(int studentId) {
-      this.studentId = studentId;
-   }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public String getStudentName() {
-        return studentName;
-    }
+	public String getPhone() {
+		return phone;
+	}
 
-    public void setStudentName(String studentName) {
-        this.studentName = studentName;
-    }
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public int getAge() {
+		return age;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setAge(int age) {
+		this.age = age;
+	}
 
-    public String getPhone() {
-        return phone;
-    }
+	public String getCity() {
+		return city;
+	}
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
+	public void setCity(String city) {
+		this.city = city;
+	}
 }

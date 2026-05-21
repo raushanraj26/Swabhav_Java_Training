@@ -8,21 +8,24 @@ import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
-@WebServlet("/registrations")
-public class ViewRegistrationsServlet extends HttpServlet {
+@WebServlet("/registration/status")
+public class UpdateRegistrationStatusServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
 	private RegistrationDAO registrationDAO = new RegistrationDAO();
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		if (session == null || session.getAttribute("loggedInUser") == null) {
 			response.sendRedirect(request.getContextPath() + "/login");
 			return;
 		}
-		request.setAttribute("registrationList", registrationDAO.getAllRegistrations());
-		request.getRequestDispatcher("/WEB-INF/views/registration-list.jsp").forward(request, response);
+		int id = Integer.parseInt(request.getParameter("registrationId"));
+		String status = request.getParameter("status");
+
+		registrationDAO.updateStatus(id, status);
+		response.sendRedirect(request.getContextPath() + "/registrations");
 	}
 }

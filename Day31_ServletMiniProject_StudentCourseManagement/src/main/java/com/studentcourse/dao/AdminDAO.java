@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import com.studentcourse.util.DbConnection;
+import com.studentcourse.util.DBConnection;
 
 
 public class AdminDAO {
@@ -17,7 +17,7 @@ public class AdminDAO {
 	        try {
 
 	            Connection con =
-	                    DbConnection.getConnection();
+	                    DBConnection.getConnection();
 	            
 
 	            String sql =

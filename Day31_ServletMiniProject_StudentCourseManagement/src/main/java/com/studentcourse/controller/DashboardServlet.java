@@ -1,38 +1,54 @@
 package com.studentcourse.controller;
 
+
+
 import java.io.IOException;
 
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.ServletException;
+import com.studentcourse.dao.CourseDAO;
+import com.studentcourse.dao.RegistrationDAO;
+import com.studentcourse.dao.StudentDAO;
+
+import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.*;
 
 @WebServlet("/dashboard")
 public class DashboardServlet extends HttpServlet {
 
-    @Override
-    public void init() {
-        System.out.println("DashboardServlet Initialized");
-    }
+	private static final long serialVersionUID = 1L;
+	private StudentDAO studentDAO;
+	private CourseDAO courseDAO;
+	private RegistrationDAO registrationDAO;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@Override
+	public void init() throws ServletException {
+		studentDAO = new StudentDAO();
+		courseDAO = new CourseDAO();
+		registrationDAO = new RegistrationDAO();
+		System.out.println("DashboardServlet initialized via init()");
+	}
 
-        HttpSession session =request.getSession(false);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		if (session == null || session.getAttribute("loggedInUser") == null) {
+			response.sendRedirect(request.getContextPath() + "/login");
+			return;
+		}
 
-        if(session == null ||session.getAttribute("loggedInUser") == null) {
-            response.sendRedirect("login");
-            return;
-        }
-  RequestDispatcher rd =request.getRequestDispatcher( "Views/dashboard.jsp" );
+		int totalStudents = studentDAO.getAllStudents().size();
+		int totalCourses = courseDAO.getAllCourses().size();
+		int totalRegistrations = registrationDAO.getAllRegistrations().size();
 
-        rd.forward(request, response);
-    }
+		request.setAttribute("totalStudents", totalStudents);
+		request.setAttribute("totalCourses", totalCourses);
+		request.setAttribute("totalRegistrations", totalRegistrations);
 
-    @Override
-    public void destroy() {
-        System.out.println("DashboardServlet Destroyed");
-    }
+		request.getRequestDispatcher("/WEB-INF/views/dashboard.jsp").forward(request, response);
+	}
+
+	@Override
+	public void destroy() {
+		System.out.println("DashboardServlet destroyed via destroy()");
+	}
 }

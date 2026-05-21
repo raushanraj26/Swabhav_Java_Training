@@ -1,54 +1,70 @@
 package com.studentcourse.Model;
 
 public class Registration {
+	private int registrationId;
+	private int studentId;
+	private int courseId;
+	private String studentName; // For View Joins
+	private String courseName; // For View Joins
+	private String registrationDate;
+	private String status;
 
-    private int registrationId;
-    private int studentId;
-    private int courseId;
-    private String registrationDate;
-    private String status;
+	public Registration() {
+	}
 
-    public Registration() {
+	public int getRegistrationId() {
+		return registrationId;
+	}
 
-    }
+	public void setRegistrationId(int registrationId) {
+		this.registrationId = registrationId;
+	}
 
-    public int getRegistrationId() {
-        return registrationId;
-    }
+	public int getStudentId() {
+		return studentId;
+	}
 
-    public void setRegistrationId(int registrationId) {
-        this.registrationId = registrationId;
-    }
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
 
-    public int getStudentId() {
-        return studentId;
-    }
+	public int getCourseId() {
+		return courseId;
+	}
 
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
-    }
+	public void setCourseId(int courseId) {
+		this.courseId = courseId;
+	}
 
-    public int getCourseId() {
-        return courseId;
-    }
+	public String getStudentName() {
+		return studentName;
+	}
 
-    public void setCourseId(int courseId) {
-        this.courseId = courseId;
-    }
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
 
-    public String getRegistrationDate() {
-        return registrationDate;
-    }
+	public String getCourseName() {
+		return courseName;
+	}
 
-    public void setRegistrationDate(String registrationDate) {
-        this.registrationDate = registrationDate;
-    }
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
+	}
 
-    public String getStatus() {
-        return status;
-    }
+	public String getRegistrationDate() {
+		return registrationDate;
+	}
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+	public void setRegistrationDate(String registrationDate) {
+		this.registrationDate = registrationDate;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 }
